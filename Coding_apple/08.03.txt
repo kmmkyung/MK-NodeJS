@@ -28,3 +28,6 @@ Node.js의 Non-blocking 때문에!!
 npm은 라이브러리 설치를 도와주는 도구이다
 package.json <- 라이브러리 뭐뭐 설치했는지 알려줌
 node_modules <- 라이브러리에 필요한 자료들 담는 공간
+
+서버자동화(업글)라이브러리
+npm install -g nodemon
