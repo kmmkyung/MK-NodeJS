@@ -6,11 +6,19 @@ var db;
 MongoClient.connect('mongodb+srv://admin:20131876@cluster0.jl1pweh.mongodb.net/?retryWrites=true&w=majority',{ useUnifiedTopology: true },function(에러,client){
   if (에러) return console.log(에러)
 	db = client.db('todoapp');
+  // 저장할 데이터 콜백함수
   db.collection('post').insertOne( {이름 : 'John', _id : 100} , function(에러, 결과){
     console.log('저장완료'); 
   });
   app.listen(8080, function(){ // .listen(서버띄울 포트번호, 띄운 후 실행할 코드)함수 쓰면 서버열수있다
     console.log('listening on 8080')
+  });
+})
+
+app.post('/add',function(req,res){
+  db = client.db('todoapp');
+  db.collection('post').insertOne({제목:'어쩌고', 날짜:'저쩌고'},function(에러,결과){
+    console.log('저장완료');
   });
 })
 
