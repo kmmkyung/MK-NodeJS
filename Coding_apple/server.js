@@ -13,14 +13,9 @@ MongoClient.connect('mongodb+srv://admin:20131876@cluster0.jl1pweh.mongodb.net/?
   app.listen(8080, function(){ // .listen(서버띄울 포트번호, 띄운 후 실행할 코드)함수 쓰면 서버열수있다
     console.log('listening on 8080')
   });
+
 })
 
-app.post('/add',function(req,res){
-  db = client.db('todoapp');
-  db.collection('post').insertOne({제목:'어쩌고', 날짜:'저쩌고'},function(에러,결과){
-    console.log('저장완료');
-  });
-})
 
 // 누군가가 /pet 으로 방문을 하면 pet 관련된 안내문을 띄워주자
 // .get(경로, 함수(요청,응답){});
@@ -48,4 +43,7 @@ app.post('/add',function(req,res){
   console.log(req.body.title);
   console.log(req.body.date);
   // DB저장
+  db.collection('post').insertOne({title:req.body.title, date:req.body.date},function(){
+    console.log('저장완료');
+    });
 })
