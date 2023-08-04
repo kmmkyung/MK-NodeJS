@@ -14,6 +14,16 @@ MongoClient.connect('mongodb+srv://admin:20131876@cluster0.jl1pweh.mongodb.net/?
     console.log('listening on 8080')
   });
 
+  // 어떤 사람이 /add 경로로 post 요청 -> req로 전달
+  app.post('/add',function(req,res){
+    res.send('전송완료')
+    console.log(req.body.title);
+    console.log(req.body.date);
+    // DB저장
+    db.collection('post').insertOne({title:req.body.title, date:req.body.date},function(){
+      console.log('저장완료');
+    });
+  })
 })
 
 
@@ -37,13 +47,3 @@ app.get('/write', function(req,res) {
   res.sendFile(__dirname +'/write.html')
 });
 
-// 어떤 사람이 /add 경로로 post 요청 -> req로 전달
-app.post('/add',function(req,res){
-  res.send('전송완료')
-  console.log(req.body.title);
-  console.log(req.body.date);
-  // DB저장
-  db.collection('post').insertOne({title:req.body.title, date:req.body.date},function(){
-    console.log('저장완료');
-    });
-})
