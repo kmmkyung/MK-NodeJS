@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<% for(let i=0; i<posts.length; i++){ %>
+  <h4>할일 제목 : <%= posts[i].title %></h4>
+  <p>할일 날자 : <%= posts[i].date %></p>
+<% } %>
+</body>
+</html>
+
+<!-- html 다른점 : 서버데이터 집어넣을 수 있음 -->

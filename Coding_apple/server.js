@@ -2,7 +2,9 @@ const express = require('express'); // 아까 설치한 라이브러리 첨부�
 const app = express(); // 첨부한 라이브러리로 객체 만들기(사용법)
 app.use(express.urlencoded({extended: true}))
 const MongoClient = require('mongodb').MongoClient;
+app.set('view engine','ejs');
 var db;
+
 MongoClient.connect('mongodb+srv://admin:20131876@cluster0.jl1pweh.mongodb.net/?retryWrites=true&w=majority',{ useUnifiedTopology: true },function(에러,client){
   if (에러) return console.log(에러)
 	db = client.db('todoapp');
@@ -20,7 +22,8 @@ MongoClient.connect('mongodb+srv://admin:20131876@cluster0.jl1pweh.mongodb.net/?
     console.log(req.body.title);
     console.log(req.body.date);
     // DB저장
-    db.collection('post').insertOne({title:req.body.title, date:req.body.date},function(){
+    // db중 'post'란곳에 insertone이란 데이터 넣어주셈
+    db.collection('post').insertOne({title:req.body.title, date:req.body.date},function(에러,결과){
       console.log('저장완료');
     });
   })
@@ -45,5 +48,19 @@ app.get('/',function(req,res){
 
 app.get('/write', function(req,res) { 
   res.sendFile(__dirname +'/write.html')
+});
+
+// list로 GET요청으로 접속하면
+// 실제 DB에 저장된 페이지 보여줌
+app.get('/list', function(req,res) { 
+  // 디비에 저장된 post라는 컬렉션 안에 모든 데이터 꺼내주셈
+  db.collection('post').find().toArray(function(에러,결과){
+    console.log(결과);
+    // ejs 파일에 집어넣기
+    // 화면으로 보여주셈 
+    res.render('list.ejs',{posts : 결과});
+  });
+
+
 });
 
