@@ -9,7 +9,11 @@
   <% for(let i=0; i<posts.length; i++){ %>
     <h4>할일 제목 : <%= posts[i].title %></h4>
     <p>할일 날자 : <%= posts[i].date %></p>
+    <button>삭제</button>
   <% } %>
 </body>
 </html>
 <!-- html 다른점 : 서버데이터 집어넣을 수 있음 -->
+<!-- ajax
+새고서버랑 통신할 수 있게 서버요청 도와줌
+-->
