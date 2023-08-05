@@ -71,3 +71,22 @@ app.get('/list', function(req,res) {
     res.render('list.ejs',{posts : 결과});
   });
 });
+
+app.delete('/delete',function(요청,응답){
+  console.log(요청.body); //{_id:1}이 담김 <- 숫자형
+  // 요청.body에 담긴 게시물번호를 가진 글을 db에서 찾아 삭제
+  // 문자로 변환된걸 숫자로 변환-몽고디비에는 숫자형이기 때문
+  요청.body._id = parseInt(요청.body._id)
+  db.collection('post').deleteOne(요청.body,function(에러,결과){
+      console.log('삭제완료');
+      응답.status(200).send({message:'성공했습니다'}) // 성공하면 응답코드 200(ok) 보내주셈
+  }) // 파라미터1: 삭제할 요소(문자형)
+})
+
+// /detail로 접속하면 detail 보여줌 /:id <-url 파라미터
+app.get('/detail/:id',function(요청,응답){
+  db.collection('post').findOne({_id : parseInt(요청.params.id)},function(에러,결과){
+    console.log(결과);
+    응답.render('detail.ejs',{ data : 결과 })
+  })
+})
