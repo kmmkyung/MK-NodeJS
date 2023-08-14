@@ -11,8 +11,8 @@
   <ul>
     <% for(let i=0; i<posts.length; i++){ %>
       <li>
-        <h4>할일 제목 : <%= posts[i].title %></h4>
-        <p>할일 날자 : <%= posts[i].date %></p>
+        <h4>제목 : <%= posts[i].title %></h4>
+        <p>날자 : <%= posts[i].date %></p>
         <button class="delete" data-id="<%= posts[i]._id%>">삭제</button>
       </li>
       <% } %>
